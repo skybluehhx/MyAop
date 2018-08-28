@@ -1,4 +1,4 @@
-package com.lin;
+package com;
 
 /**
  * Created by zoujianglin
