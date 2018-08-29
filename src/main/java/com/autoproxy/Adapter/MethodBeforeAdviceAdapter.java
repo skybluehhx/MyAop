@@ -8,7 +8,7 @@ import org.aopalliance.intercept.MethodInterceptor;
  * 2018/8/28 0028.
  * 适配器，将advice适配为拦截器，从而方便处理
  */
-public class MethodBeforeAdviceAdapter {
+public class MethodBeforeAdviceAdapter implements AdviceAdapter {
 
     public boolean supportsAdvice(Advice advice) {
         return advice instanceof MethodBeforeAdvice;
