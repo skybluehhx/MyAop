@@ -46,7 +46,6 @@ public class AdviceUtil {
     public static void registerAdapter(AdviceAdapter adviceAdapter) {
         adviceAdapters.add(adviceAdapter);
 
-
     }
 
 }

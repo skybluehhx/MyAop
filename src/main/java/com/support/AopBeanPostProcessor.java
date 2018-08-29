@@ -4,9 +4,11 @@ import com.AopSupport;
 import com.MethodConfig;
 import com.annotations.EnableAop;
 import com.annotations.InterceptorAdvice;
+import com.autoproxy.JDKDynamicProxy;
 import org.aopalliance.aop.Advice;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
@@ -14,6 +16,7 @@ import java.lang.reflect.Method;
  * Created by zoujianglin
  * 2018/8/29 0029.
  */
+@Component
 public class AopBeanPostProcessor implements BeanPostProcessor {
     public Object postProcessBeforeInitialization(Object bean, String s) throws BeansException {
         return bean;
@@ -38,10 +41,11 @@ public class AopBeanPostProcessor implements BeanPostProcessor {
 
 
             }
-            return null;
+            aopSupport.addInterfaces(bean.getClass().getInterfaces());
+            aopSupport.setTarget(bean);
+            return new JDKDynamicProxy(aopSupport).getProxy();
+
         } else {
-
-
             return bean;
         }
     }

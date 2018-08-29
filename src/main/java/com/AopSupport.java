@@ -1,6 +1,7 @@
 package com;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ public final class AopSupport extends ProxyConfig {
 
     public AopSupport() {
         methodConfigMap = new HashMap<String, MethodConfig>();
+        interfaces = new ArrayList<Class<?>>();
     }
 
     public void addMethodConfig(String methodName, MethodConfig methodConfig) {
@@ -48,5 +50,13 @@ public final class AopSupport extends ProxyConfig {
 
     public void setInterfaces(List<Class<?>> interfaces) {
         this.interfaces = interfaces;
+    }
+
+    public void addInterfaces(Class<?>[] interClass) {
+        for (int i = 0; i < interClass.length; i++) {
+            if (interClass[i].isInterface()) {
+                interfaces.add(interClass[i]);
+            }
+        }
     }
 }

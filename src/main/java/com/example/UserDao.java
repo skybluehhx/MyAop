@@ -9,10 +9,8 @@ import com.autoproxy.Adapter.MethodBeforeAdvice;
  * 2018/8/29 0029.
  */
 @EnableAop
-public class UseDao {
+public interface UserDao {
 
-    @InterceptorAdvice(advices = MyMethodBeforeAdvice.class)
-    public void test() {
 
-    }
+    public void test();
 }

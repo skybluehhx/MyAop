@@ -42,12 +42,12 @@ public class MyMethodInvocation implements MethodInvocation {
     public Object proceed() throws Throwable {
 
         if (currentIndex == methodInterceptors.size() - 1) {
-            return methodInterceptors.get(++currentIndex).invoke(this);
-        } else {
-            System.out.print("原来方法调用");   //调用原先方法 method.invoke(),可以通过参数获得
+            //调用原先方法 method.invoke(),可以通过参数获得
             //添加判断 防止递归完后每个方法都回到这 也算终止条件
             return method.invoke(target, arguments);
 
+        } else {
+            return methodInterceptors.get(++currentIndex).invoke(this);
         }
 
     }
