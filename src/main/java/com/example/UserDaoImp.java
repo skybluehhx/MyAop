@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * 2018/8/29 0029.
  */
 @Component("userDao")
-@EnableAop
+@EnableAop(advices = MyMethodBeforeSecondAdvice.class)
 public class UserDaoImp implements UserDao {
 
     @InterceptorAdvice(advices = {MyMethodBeforeAdvice.class,

@@ -22,12 +22,13 @@ public class MethodConfig {
 
 
     public MethodConfig(Object target, Method method, Class<? extends Advice>[] advices) {
-        List<MethodInterceptor> methodInterceptors = getMethodInterceptorsByAdvicesClass(advices);
+
         Assert.notNull(method, "被代理的方法不能为空");
         Assert.notNull(target, "代理对象不能为空");
         this.target = target;
         this.method = method;
-        this.methodInterceptors = methodInterceptors;
+        methodInterceptors = new ArrayList<MethodInterceptor>();
+        addMethodInterceptorsByAdviceClass(advices);
 
     }
 
@@ -69,8 +70,38 @@ public class MethodConfig {
 
     }
 
+    public MethodInterceptor getOneMethodInterceptorByAdviceClass(Class<? extends Advice> adviceClass) {
+        Advice advice = null;
+        try {
+            advice = adviceClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        MethodInterceptor methodInterceptor = AdviceUtil.getMethodInterceptor(advice);
+        return methodInterceptor;
+    }
+
+    public void addMethodInterceptorsByAdviceClass(Class<? extends Advice> adviceClass) {
+        MethodInterceptor methodInterceptor = getOneMethodInterceptorByAdviceClass(adviceClass);
+        Assert.notNull(methodInterceptor, "请确保" + adviceClass + "为正确类型");
+        methodInterceptors.add(methodInterceptor);
+
+    }
+
+    public void addMethodInterceptorsByAdviceClass(Class<? extends Advice>[] advices) {
+        for (int i = 0; i < advices.length; i++) {
+            MethodInterceptor methodInterceptor = getOneMethodInterceptorByAdviceClass(advices[i]);
+            methodInterceptors.add(methodInterceptor);
+        }
+
+    }
+
+/*
     public List<MethodInterceptor> getMethodInterceptorsByAdvicesClass(Class<? extends Advice>[] advices) {
-        List<MethodInterceptor> methodInterceptors = new ArrayList<MethodInterceptor>();
         for (int i = 0; i < advices.length; i++) {
             Advice advice = null;
             try {
@@ -89,6 +120,6 @@ public class MethodConfig {
 
         return methodInterceptors;
     }
-
+*/
 
 }

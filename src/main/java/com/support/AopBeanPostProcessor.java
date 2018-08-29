@@ -24,6 +24,8 @@ public class AopBeanPostProcessor implements BeanPostProcessor {
 
     public Object postProcessAfterInitialization(Object bean, String s) throws BeansException {
         if (bean.getClass().isAnnotationPresent(EnableAop.class)) {
+            EnableAop enableAop = bean.getClass().getAnnotation(EnableAop.class);
+            Class<? extends Advice>[] enableAopAdvice = enableAop.advices();
             AopSupport aopSupport = new AopSupport();
             Method[] methods = bean.getClass().getDeclaredMethods();
             for (int i = 0; i < methods.length; i++) {
@@ -35,6 +37,9 @@ public class AopBeanPostProcessor implements BeanPostProcessor {
                     InterceptorAdvice interceptorAdvice = methods[i].getAnnotation(InterceptorAdvice.class);
                     Class<? extends Advice>[] advices = interceptorAdvice.advices();
                     MethodConfig methodConfig = new MethodConfig(bean, methods[i], advices);
+                    if (enableAopAdvice != null && enableAopAdvice.length > 0) {
+                        methodConfig.addMethodInterceptorsByAdviceClass(enableAopAdvice);
+                    }
                     aopSupport.addMethodConfig(methods[i].getName(), methodConfig);
 
                 }
