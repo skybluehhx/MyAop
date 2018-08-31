@@ -1,8 +1,8 @@
 package com.autoproxy;
 
-import com.AopSupport;
+import com.support.AopSupport;
 import com.MethodConfig;
-import com.MyMethodInvocation;
+import com.AopMethodInvocation;
 import org.aopalliance.intercept.MethodInvocation;
 
 import java.lang.reflect.InvocationHandler;
@@ -39,7 +39,7 @@ public class JDKDynamicProxy implements AopProxy, InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         MethodConfig methodConfig = aopSupport.getMethodConfig(method.getName());
-        MethodInvocation methodInvocation = new MyMethodInvocation(methodConfig.getTarget(), method,
+        MethodInvocation methodInvocation = new AopMethodInvocation(methodConfig.getTarget(), method,
                 args, methodConfig.getMethodInterceptors());
 
         return methodInvocation.proceed();

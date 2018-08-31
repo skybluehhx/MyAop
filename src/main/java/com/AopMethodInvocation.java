@@ -11,7 +11,7 @@ import java.util.List;
  * Created by zoujianglin
  * 2018/8/28 0028.
  */
-public class MyMethodInvocation implements MethodInvocation {
+public class AopMethodInvocation implements MethodInvocation {
     //控制拦截器偏移量
     private int currentIndex = -1;
 
@@ -23,8 +23,8 @@ public class MyMethodInvocation implements MethodInvocation {
     //代理方法的参数
     private Object[] arguments;
 
-    public MyMethodInvocation(Object target, Method method, Object[] arguments,
-                              List<MethodInterceptor> methodInterceptors) {
+    public AopMethodInvocation(Object target, Method method, Object[] arguments,
+                               List<MethodInterceptor> methodInterceptors) {
         this.methodInterceptors = methodInterceptors;
         this.target = target;
         this.method = method;

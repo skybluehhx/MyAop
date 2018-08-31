@@ -12,7 +12,6 @@ public class ProxyConfig {
 
 
 
-    private static final long serialVersionUID = -8409359707199703185L;
     private boolean proxyTargetClass = false;
     private boolean optimize = false;
     boolean opaque = false;
