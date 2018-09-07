@@ -11,6 +11,7 @@
 
 
     <context:component-scan base-package="com.*,com"></context:component-scan>
-    <!--  <aop:aspectj-autoproxy/>-->
+    <!--引入aop-->
+    <aop:aspectj-autoproxy/>
     <!-- aop测试,需要引入aop命名空间 -->
 </beans>

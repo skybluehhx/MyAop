@@ -39,7 +39,7 @@ public class JDKDynamicProxy implements AopProxy, InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         MethodConfig methodConfig = aopSupport.getMethodConfig(method.getName());
-        MethodInvocation methodInvocation = new AopMethodInvocation(methodConfig.getTarget(), method,
+        MethodInvocation methodInvocation = new AopMethodInvocation(aopSupport.getTarget(), method,
                 args, methodConfig.getMethodInterceptors());
 
         return methodInvocation.proceed();
